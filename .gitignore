@@ -1,0 +1,6 @@
+out/
+tmp/
+jacoco/
+jacoco.exec
+
+.#
