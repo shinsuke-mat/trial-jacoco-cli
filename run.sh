@@ -14,18 +14,12 @@ function init() {
 init
 
 echo '>> compiling java file'
-javac -d tmp/orig Example.java
-
-# echo '>> jacoco instrumenting'
-# java -jar jacoco/lib/jacococli.jar instrument tmp/orig/Example.class --dest tmp/jacoco/
-# 
-# echo '>> executing instrumented class file'
-# java -cp "jacoco/lib/*;tmp/jacoco" Example
+javac -d tmp Example.java
 
 echo '>> executing instrumented class file'
-java -cp "tmp/orig" -javaagent:jacoco/lib/jacocoagent.jar Example
+java -cp "tmp" -javaagent:jacoco/lib/jacocoagent.jar Example
 
 echo '>> generating execution report'
-java -jar jacoco/lib/jacococli.jar report jacoco.exec --sourcefiles . --classfiles tmp/orig --html out
+java -jar jacoco/lib/jacococli.jar report jacoco.exec --sourcefiles . --classfiles tmp --html out
 
 echo '>> open file://'$(pwd)'/out/index.html'
