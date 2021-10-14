@@ -1,5 +1,6 @@
 out/
 tmp/
+build/
 jacoco/
 jacoco.exec
 

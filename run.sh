@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JACOCO_VERSION=0.8.6
+JACOCO_VERSION=0.8.7
 
 function init() {
     mkdir -p tmp
@@ -14,12 +14,16 @@ function init() {
 init
 
 echo '>> compiling java file'
-javac -d tmp Example.java
+javac -d build src/Example.java
 
-echo '>> executing instrumented class file'
-java -cp "tmp" -javaagent:jacoco/lib/jacocoagent.jar Example
+echo '>> executing class file instrumentation'
+java -jar jacoco/lib/jacococli.jar instrument build --dest tmp
+
+echo '>> executing instrumented class files'
+java -cp build -javaagent:jacoco/lib/jacocoagent.jar Example
 
 echo '>> generating execution report'
-java -jar jacoco/lib/jacococli.jar report jacoco.exec --sourcefiles . --classfiles tmp --html out
+java -jar jacoco/lib/jacococli.jar report jacoco.exec --sourcefiles src --classfiles build --html out
 
 echo '>> open file://'$(pwd)'/out/index.html'
+

@@ -4,6 +4,8 @@ public class Example {
         System.out.println(i);
         if (i < 0) {
             System.out.println("xxx");
+        } else {
+            System.out.println("yyy");
         }
     }
 }
